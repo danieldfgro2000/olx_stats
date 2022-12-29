@@ -7,10 +7,11 @@ kawasaki_moto_models = [
 	'kle',
 	'klr',
 	'kx-450',
-	'kxf-450'
+	'kxf-450',
 	'z750',
 	'z650',
 	'z800',
+	'z900',
 	'z1000',
 	'versys'
 ]
@@ -20,5 +21,5 @@ kawasaki_atv_models = [
 	'kfx',
 	'kvf',
 	'bayou',
-	'brute force'
+	'brute-force'
 ]

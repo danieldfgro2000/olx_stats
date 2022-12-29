@@ -1,8 +1,8 @@
-from main.selenium_scrapper.honda.models import honda_moto_models, honda_atv_models
-from main.selenium_scrapper.kawasaki.models import kawasaki_moto_models, kawasaki_atv_models
-from main.selenium_scrapper.suzuki.models import suzuki_moto_models, suzuki_atv_models
-from main.selenium_scrapper.yamaha.models import yamaha_moto_models, yamaha_atv_models
-from main.utils.MotoEnumMod import MotoAtvEnum
+from main.model.honda.models import honda_moto_models, honda_atv_models
+from main.model.kawasaki.models import kawasaki_moto_models, kawasaki_atv_models
+from main.model.suzuki.models import suzuki_moto_models, suzuki_atv_models
+from main.model.yamaha.models import yamaha_moto_models, yamaha_atv_models
+from main.utils.MotoEnumMod import MotoAtvEnum, MotoEnum
 
 moto_kawa_url = "https://www.olx.ro/d/auto-masini-moto-ambarcatiuni/motociclete-scutere-atv/motociclete/q-kawasaki/?currency=EUR&search%5Bprivate_business%5D=private&search%5Bfilter_float_price:from%5D=500&search%5Bfilter_float_year:from%5D=2003&search%5Bfilter_float_enginesize:from%5D=250&search%5Bfilter_enum_state%5D%5B0%5D=used"
 moto_honda_url = "https://www.olx.ro/d/auto-masini-moto-ambarcatiuni/motociclete-scutere-atv/motociclete/q-honda/?currency=EUR&search%5Bprivate_business%5D=private&search%5Bfilter_float_price:from%5D=500&search%5Bfilter_float_year:from%5D=2003&search%5Bfilter_float_enginesize:from%5D=250&search%5Bfilter_enum_state%5D%5B0%5D=used"
@@ -24,21 +24,13 @@ atv_models = [kawasaki_atv_models, honda_atv_models, yamaha_atv_models, suzuki_a
 
 def return_url_list():
 	moto_urls = []
+	year = '1998'
+	engine_size = '250'
 	for moto_or_atv in MotoAtvEnum:
-		if moto_or_atv.name == 'motociclete':
-			for brand in moto_models:
-				for model in brand:
-					# print(f"model = {model}")
-					moto_urls.append(
-						f'https://www.olx.ro/d/auto-masini-moto-ambarcatiuni/motociclete-scutere-atv/{moto_or_atv.name}/q-{model}/?currency=EUR&search%5Bprivate_business%5D=private&search%5Bfilter_float_price:from%5D=500&search%5Bfilter_float_year:from%5D=2003&search%5Bfilter_float_enginesize:from%5D=250&search%5Bfilter_enum_state%5D%5B0%5D=used')
-				# print(f"urls = {moto_urls[len(moto_urls) -1]}")
-		if moto_or_atv.name == 'atv':
-			for brand in atv_models:
-				for model in brand:
-					# print(f"model = {model}")
-					moto_urls.append(
-						f'https://www.olx.ro/d/auto-masini-moto-ambarcatiuni/motociclete-scutere-atv/{moto_or_atv.name}/q-{model}/?currency=EUR&search%5Bprivate_business%5D=private&search%5Bfilter_float_price:from%5D=500&search%5Bfilter_float_year:from%5D=2003&search%5Bfilter_float_enginesize:from%5D=250&search%5Bfilter_enum_state%5D%5B0%5D=used')
-				# print(f"urls = {moto_urls[len(moto_urls) -1]}")
+		for brand in MotoEnum:
+			moto_urls.append(
+				f'https://www.olx.ro/d/auto-masini-moto-ambarcatiuni/motociclete-scutere-atv/{moto_or_atv.name}/q-{brand.name}/?currency=EUR&search%5Bprivate_business%5D=private&search%5Bfilter_float_price:from%5D=500&search%5Bfilter_float_year:from%5D={year}&search%5Bfilter_float_enginesize:from%5D={engine_size}&search%5Bfilter_enum_state%5D%5B0%5D=used')
+	
 	return moto_urls
 
 

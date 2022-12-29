@@ -21,16 +21,15 @@ def write_scrapped_model_data_to_csv(list_of_adds):
 	today = current_time.split(' ')[0]
 	
 	for data in list_of_adds:
-		type_atv_or_moto = get_type(data)
 		brand = get_brand(data)
 		model = get_model(data)
 		
 		if brand is not None and model is not None:
 			scrapped_path = "main/selenium_scrapper/scrapped_data/"
 			if not os.path.isdir(f"{scrapped_path}{brand}"):
-				os.makedirs(f"{scrapped_path}{brand}/")
-			with open(f'{scrapped_path}{brand}'
-			          f'{today}-{type_atv_or_moto}-{brand}-{model}.listing.csv', 'a+', newline='',
+				os.makedirs(f"{scrapped_path}{brand}")
+			with open(f'{scrapped_path}{brand}/'
+			          f'{today}-{brand}-{model}.listing.csv', 'a+', newline='',
 			          encoding="utf-8") as file:
 				writer = csv.writer(file)
 				writer.writerow(data)
@@ -39,34 +38,24 @@ def write_scrapped_model_data_to_csv(list_of_adds):
 def get_model(data):
 	for brand in moto_models:
 		for moto_model in brand:
-			if moto_model in data[1]:
+			if moto_model in data[0]:
 				return moto_model
 	
 	for brand in atv_models:
 		for atv_model in brand:
-			if atv_model in data[1]:
+			if atv_model in data[0]:
 				return atv_model
 
 
 def get_brand(data):
-	if 'kawasaki' in data[1]:
+	if 'kawasaki' in data[0]:
 		brand = 'kawasaki'
-	elif 'honda' in data[1]:
+	elif 'honda' in data[0]:
 		brand = 'honda'
-	elif 'yamaha' in data[1]:
+	elif 'yamaha' in data[0]:
 		brand = 'yamaha'
-	elif 'suzuki' in data[1]:
+	elif 'suzuki' in data[0]:
 		brand = 'suzuki'
 	else:
 		brand = None
 	return brand
-
-
-def get_type(data):
-	if 'atv' in data[1]:
-		type_atv_or_moto = 'atv'
-	elif 'moto' in data[1]:
-		type_atv_or_moto = 'moto'
-	else:
-		type_atv_or_moto = 'moto'
-	return type_atv_or_moto

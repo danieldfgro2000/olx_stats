@@ -14,5 +14,5 @@ suzuki_moto_models = [
 suzuki_atv_models = [
 	'eiger',
 	'ltz',
-	'king quad'
+	'king-quad'
 ]

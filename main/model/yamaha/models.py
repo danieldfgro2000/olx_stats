@@ -9,7 +9,7 @@ yamaha_moto_models = [
 	'yz250',
 	'yzf250',
 	'yz450',
-	'xj6'
+	'xj6',
 	'xt660',
 	'wr250',
 	'wr450',
@@ -17,7 +17,7 @@ yamaha_moto_models = [
 
 yamaha_atv_models = [
 	'big bear',
-	'kodiak'
+	'kodiak',
 	'grizzly',
 	'raptor',
 	'yfm',
