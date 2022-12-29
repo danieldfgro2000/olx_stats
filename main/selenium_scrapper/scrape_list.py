@@ -19,9 +19,12 @@ def init_data_scrapping(selenium_web_driver):
 	scrapped_data_list = []
 	
 	while len(scrapped_data_list) < int(total_items):
+		scrapped_data_list.extend(try_scrapping(selenium_web_driver, total_items))
+		
 		if load_next_page_is_available(selenium_web_driver):
-			scrapped_data_list.extend(try_scrapping(selenium_web_driver, total_items))
 			click_on_next_button(selenium_web_driver)
+		else:
+			break
 	print(f"Finished for this type")
 
 	return sorted(scrapped_data_list, key=itemgetter(2))

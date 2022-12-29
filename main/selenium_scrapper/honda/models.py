@@ -14,5 +14,6 @@ honda_moto_models = [
 honda_atv_models = [
 	'trx',
 	'explorer',
-	
+	'fourtrax',
+	'rubicon'
 ]

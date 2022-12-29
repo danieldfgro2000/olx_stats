@@ -6,3 +6,8 @@ class MotoEnum(Enum):
 	HONDA = 2
 	YAMAHA = 3
 	SUZUKI = 4
+	
+	
+class MotoAtvEnum(Enum):
+	motociclete = 1
+	atv = 2
