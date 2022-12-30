@@ -1,5 +1,4 @@
 import sys
-from operator import itemgetter
 
 import tqdm
 from selenium.common.exceptions import \
