@@ -1,10 +1,10 @@
 from main.utils.MotoEnumMod import MotoAtvEnum, MotoEnum
 
 
-def return_url_list():
+def return_url_list(year, engine_size):
 	moto_urls = []
-	year = '2009'
-	engine_size = '250'
+	# year = '2009'
+	# engine_size = '250'
 	for moto_or_atv in MotoAtvEnum:
 		for brand in MotoEnum:
 			moto_urls.append(

@@ -9,11 +9,6 @@ from main.utils.MotoEnumMod import MotoEnum
 from main.utils.date_time import current_time, current_time_millis, time_passed
 
 
-def list_scrapping():
-	start_moto_scrapping()
-	start_atv_scrapping()
-	
-
 def execute_scrapping(url, brand_add, type_moto_or_atv):
 	print(f"Loading specific URL: {url}")
 	print(f"Brand = {brand_add}")
@@ -23,24 +18,10 @@ def execute_scrapping(url, brand_add, type_moto_or_atv):
 	
 	
 def execute_model_scrapping():
-	for url in return_url_list():
+	for url in return_url_list(year='1990', engine_size='250'):
 		print(f"Loading specific URL: {url}")
 		selenium_web_driver = setup_selenium_web_driver(url)
 		scrapped_data_list = init_data_scrapping(selenium_web_driver)
 		write_scrapped_model_data_to_csv(scrapped_data_list)
 
-
-def start_moto_scrapping():
-	for brand in MotoEnum:
-		execute_scrapping(url=input_urls.moto_url_list[brand.value - 1], type_moto_or_atv="MOTO", brand_add=brand.name)
-
-
-def start_atv_scrapping():
-	for brand in MotoEnum:
-		execute_scrapping(url=input_urls.atv_url_list[brand.value - 1], type_moto_or_atv="ATV", brand_add=brand.name)
-		
-
-def start_model_scrapping():
-	for model_url in return_url_list():
-		execute_scrapping(model_url)
 

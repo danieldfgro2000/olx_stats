@@ -29,7 +29,7 @@ def write_scrapped_model_data_to_csv(list_of_adds):
 			if not os.path.isdir(f"{scrapped_path}{today}/{brand}/{type_atv_or_moto}"):
 				os.makedirs(f"{scrapped_path}{today}/{brand}/{type_atv_or_moto}/")
 			with open(f'{scrapped_path}{today}/{brand}/{type_atv_or_moto}/'
-			          f'{type_atv_or_moto}-{model}-{brand}.listing.csv', 'a+', newline='',
+			          f'{type_atv_or_moto}-{model}-{brand}-{today}.listing.csv', 'a+', newline='',
 			          encoding="utf-8") as file:
 				writer = csv.writer(file)
 				writer.writerow(data)
