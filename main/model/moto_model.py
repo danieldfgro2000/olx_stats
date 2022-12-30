@@ -1,11 +1,12 @@
 class MotoModel:
-	def __init__(self, title, brand, model, type, year, added_date, sell_date, price ):
+	def __init__(self, title, link, brand, model, type_atv_or_moto, year, price, added_date, location, sell_date=None):
 		self.title = title
+		self.link = link
 		self.brand = brand
 		self.model = model
-		self.type = type
+		self.type_atv_or_moto = type_atv_or_moto
 		self.year = year
-		self.added_date = added_date
-		self.sell_date = sell_date
 		self.price = price
-		
+		self.added_date = added_date
+		self.location = location
+		self.sell_date = sell_date
