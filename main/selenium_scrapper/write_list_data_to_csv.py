@@ -24,11 +24,12 @@ def write_scrapped_model_data_to_csv(list_of_adds):
 	for data in list_of_adds:
 		brand = data[6]
 		model = data[7]
+		type_atv_or_moto = data[8]
 		if brand is not None and model is not None:
-			if not os.path.isdir(f"{scrapped_path}{today}/{brand}"):
-				os.makedirs(f"{scrapped_path}{today}/{brand}")
-			with open(f'{scrapped_path}{today}/{brand}/'
-			          f'{today}-{brand}-{model}.listing.csv', 'a+', newline='',
+			if not os.path.isdir(f"{scrapped_path}{today}/{brand}/{type_atv_or_moto}"):
+				os.makedirs(f"{scrapped_path}{today}/{brand}/{type_atv_or_moto}/")
+			with open(f'{scrapped_path}{today}/{brand}/{type_atv_or_moto}/'
+			          f'{type_atv_or_moto}-{model}-{brand}.listing.csv', 'a+', newline='',
 			          encoding="utf-8") as file:
 				writer = csv.writer(file)
 				writer.writerow(data)

@@ -45,10 +45,10 @@ def load_next_page_is_available(selenium_web_driver):
 def click_on_next_button(selenium_web_driver):
 	try:
 		selenium_web_driver.find_element(By.CSS_SELECTOR, 'a[data-testid="pagination-forward"]').click()
-		print("Next Button Clicked")
-		print(f"Waiting for content to load... {WAIT_AFTER_LOADING} sec")
+		# print("Next Button Clicked")
+		# print(f"Waiting for content to load... {WAIT_AFTER_LOADING} sec")
 		time.sleep(WAIT_AFTER_LOADING)
-		print("Page loaded OK")
+		# print("Page loaded OK")
 	except (TimeoutException, StaleElementReferenceException, ElementClickInterceptedException):
 		tb = sys.exc_info()[0]
 		print(f"Scrape Data TraceBack {tb}")

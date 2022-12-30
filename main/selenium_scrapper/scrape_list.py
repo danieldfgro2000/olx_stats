@@ -30,7 +30,7 @@ def init_data_scrapping(selenium_web_driver):
 			break
 	print(f"Finished for this type")
 	
-	return sorted(remove_duplicates(scrapped_data_list), key=itemgetter(0))
+	return sorted(remove_duplicates(scrapped_data_list), key=itemgetter(0, 1))
 
 
 def try_scrapping(selenium_web_driver, total_of_elements):
@@ -77,7 +77,7 @@ def try_scrapping(selenium_web_driver, total_of_elements):
 								add_type = moto_atv_brand_model_dict.get(brand).get(model)
 							
 								scrapped_data_list.append(
-									[ad_price, ad_year, ad_listing_date, ad_link, ad_title, ad_location, add_brand, add_model,
+									[ad_price, ad_year, ad_location, ad_listing_date, ad_link, ad_title, add_brand, add_model,
 									 add_type])
 	except (NoSuchElementException, StaleElementReferenceException, ElementNotInteractableException,
 	        ElementClickInterceptedException):
@@ -90,9 +90,6 @@ def try_scrapping(selenium_web_driver, total_of_elements):
 def remove_duplicates(scrapped_data_list):
 	without_duplicates = []
 	for add in scrapped_data_list:
-		# print(f'add = {add}')
 		if add not in without_duplicates:
 			without_duplicates.append(add)
-	print(f" w len = {len(without_duplicates)}")
-	print(f" s len = {len(scrapped_data_list)}")
 	return without_duplicates

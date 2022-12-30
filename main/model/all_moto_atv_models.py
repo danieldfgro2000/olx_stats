@@ -1,9 +1,15 @@
 moto_atv_brand_model_dict = {
 	'honda': {
 		'crf': 'motocicleta',
-		'cbr': 'motocicleta',
-		'cb500': 'motocicleta',
-		'cbf1000': 'motocicleta',
+		'cbr-250': 'motocicleta',
+		'cbr-300': 'motocicleta',
+		'cbr-500': 'motocicleta',
+		'cbr-600-f': 'motocicleta',
+		'cbr-650-f': 'motocicleta',
+		'cbr-600-rr': 'motocicleta',
+		'cbr-1000-rr': 'motocicleta',
+		'cb-500': 'motocicleta',
+		'cbf-1000': 'motocicleta',
 		'hornet': 'motocicleta',
 		'nc700': 'motocicleta',
 		'nc750': 'motocicleta',
