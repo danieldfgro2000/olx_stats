@@ -6,7 +6,7 @@ from selenium.common.exceptions import \
 	ElementNotInteractableException
 from selenium.webdriver.common.by import By
 
-from main.model.all_moto_atv_models import moto_atv_brand_model_dict
+from main.model.all_moto_atv_models import moto_atv_brand_model_dict, reduced_moto_atv_brand_model_dict
 from main.selenium_scrapper.handle_page_loading import load_next_page_is_available, click_on_next_button
 from main.utils.date_time import current_time
 

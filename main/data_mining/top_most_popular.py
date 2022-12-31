@@ -1,42 +1,80 @@
-import os
-
 import matplotlib.pyplot as plt
-import pandas as pd
+import matplotlib.ticker
 import seaborn as sns
 
-from main.utils.date_time import current_time
+from main.data_mining.a_return_data_from_all_files import return_data_from_all_files, TimeFrameAndModelEnum
 
-today = current_time.split(' ')[0]
-
-scrapped_data_path = f'/home/daniel/PycharmProjects/olx_stats/main/selenium_scrapper/scrapped_data/{today}/kawasaki/'
-
-
-def return_data_from_all_files():
-	list_of_csv = []
-	for root, dirs, files in os.walk(os.path.normpath(scrapped_data_path)):
-		for file in files:
-			rf = pd.read_csv(
-				filepath_or_buffer=os.path.join(root, file),
-				index_col=None,
-				header=0,
-				delimiter=',',
-				names=['Price', 'Year', 'Location', 'added_date', 'Link', 'Title', 'Brand', 'Model', 'Type_moto_or_atv']
-			)
-			list_of_csv.append(rf)
-	return pd.concat(list_of_csv, ignore_index=True)
+sns.set_theme(style='darkgrid')
+sns.set(rc={'axes.facecolor': 'cornflowerblue'})
 
 
-all_moto_list = return_data_from_all_files()
-moto_count = all_moto_list.groupby(['Model', 'Year', 'Price']).size().reset_index(name='Location')
+def show_plot():
+	ax = plt.gca()
+	ax.xaxis.set_major_locator(matplotlib.ticker.MultipleLocator(500))
+	plt.show()
 
-model_count = moto_count.Model.value_counts().index
-g = sns.catplot(
-	data=moto_count,
-	row='Model',
-	row_order=model_count,
-	height=1.7,
-	aspect=4
-)
-g.map(sns.kdeplot, 'Model count')
 
-plt.show()
+all_moto_list = return_data_from_all_files(TimeFrameAndModelEnum.ALL)
+
+
+def show_most_popular():
+	moto_count = all_moto_list.groupby(['Model', 'Year', 'Price']).size().reset_index(name="Location")
+	model_count = moto_count.Model.value_counts().iloc[:20]
+	
+	print(f'model count= \n {model_count}')
+	sns.countplot(
+		data=moto_count,
+		y='Model',
+		hue='Model',
+		palette='Greens_d',
+		order=moto_count.Model.value_counts().iloc[:20].index
+	)
+	plt.show()
+
+
+def show_most_popular_by_year():
+	moto_count = all_moto_list.groupby(['Year', 'Price', 'Model'])
+	model_count = moto_count.Model.value_counts().iloc[:20]
+	# model_nr = count(moto_count.Model)
+	print(moto_count.size())
+	
+	sns.catplot(
+		data=all_moto_list.groupby("Model").filter(lambda x: len(x) > 30),
+		x='Year',
+		y='Model',
+		kind='box'
+	)
+	plt.show()
+
+
+def show_most_popular_by_price():
+	sns.catplot(
+		data=all_moto_list
+		.sort_values('Model')
+		.groupby("Model")
+		.filter(lambda x: len(x) > 30),
+		x='Model',
+		y='Price',
+		kind='boxen'
+	)
+	plt.show()
+
+
+def show_most_popular_by_price_and_year():
+	sns.relplot(
+		data=all_moto_list
+		.sort_values('Model')
+		.groupby('Model')
+		.filter(lambda x: len(x) > 40),
+		x='Model',
+		y='Year',
+		size='Price',
+		sizes=(5, 500)
+	)
+	plt.show()
+
+
+# show_most_popular()
+# show_most_popular_by_year()
+# show_most_popular_by_price()
+show_most_popular_by_price_and_year()

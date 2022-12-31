@@ -119,3 +119,38 @@ moto_atv_brand_model_dict = {
 		'king-quad': 'atv',
 	}
 }
+reduced_moto_atv_brand_model_dict = {
+	'honda': {
+		'hornet': 'motocicleta',
+		'nc700': 'motocicleta',
+		'nc750': 'motocicleta',
+		'vfr': 'motocicleta',
+	},
+	'kawasaki': {
+		'z750': 'motocicleta',
+		'z800': 'motocicleta',
+		'versys': 'motocicleta',
+	},
+	'yamaha': {
+		'fz6': 'motocicleta',
+		'tenere': 'motocicleta',
+		'tdm': 'motocicleta',
+		'xt660': 'motocicleta',
+		'wr': 'motocicleta',
+		'big-bear': 'atv',
+		'kodiak': 'atv',
+		'grizzly': 'atv',
+		'raptor': 'atv'
+	},
+	'suzuki': {
+		'bandit': 'motocicleta',
+		'freewind': 'motocicleta',
+		'gsr': 'motocicleta',
+		'rmz': 'motocicleta',
+		'drz': 'motocicleta',
+		'sv650': 'motocicleta',
+		'vstrom': 'motocicleta',
+		'ltz': 'atv',
+		'king-quad': 'atv',
+	}
+}
