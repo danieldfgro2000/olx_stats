@@ -1,4 +1,5 @@
 import os
+import sys
 from enum import Enum
 
 import pandas as pd
@@ -22,14 +23,20 @@ class TimeFrameAndModelEnum(Enum):
 
 def return_data_from_all_files(timeframe_and_model: TimeFrameAndModelEnum):
 	list_of_csv = []
-	for root, dirs, files in os.walk(os.path.normpath(timeframe_and_model.value)):
-		for file in files:
-			rf = pd.read_csv(
-				filepath_or_buffer=os.path.join(root, file),
-				index_col=None,
-				header=0,
-				delimiter=',',
-				names=['Price', 'Year', 'Location', 'added_date', 'Link', 'Title', 'Brand', 'Model', 'Type_moto_or_atv']
-			)
-			list_of_csv.append(rf)
-	return pd.concat(list_of_csv, ignore_index=True)
+	try:
+		for root, dirs, files in os.walk(os.path.normpath(timeframe_and_model.value)):
+			for file in files:
+				rf = pd.read_csv(
+					filepath_or_buffer=os.path.join(root, file),
+					index_col=None,
+					header=0,
+					delimiter=',',
+					names=['Price', 'Year', 'Location', 'added_date', 'Link', 'Title', 'Brand', 'Model',
+					       'Type_moto_or_atv']
+				)
+				list_of_csv.append(rf)
+		return pd.concat(list_of_csv, ignore_index=True)
+	except ValueError:
+		tb = sys.exc_info()[0]
+		print(f"Return CSV list TraceBack {tb}")
+		return pd.DataFrame({'A': []})

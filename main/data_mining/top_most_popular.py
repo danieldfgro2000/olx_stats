@@ -1,22 +1,26 @@
+import sys
+
 import matplotlib.pyplot as plt
 import matplotlib.ticker
 import numpy as np
+import pandas as pd
 import seaborn as sns
+from pandas.errors import UndefinedVariableError
 
 from main.data_mining.a_return_data_from_all_files import return_data_from_all_files, TimeFrameAndModelEnum
 
 sns.set_theme(style='darkgrid')
 sns.set(rc={'axes.facecolor': 'cornflowerblue'})
 
+all_moto_list = return_data_from_all_files(TimeFrameAndModelEnum.TODAY)
 
-def show_plot():
+
+def show_plot(x_prec_int, y_prec_int):
 	ax = plt.gca()
-	ax.xaxis.set_major_locator(matplotlib.ticker.MultipleLocator(500))
-	ax.yaxis.set_major_locator(matplotlib.ticker.MultipleLocator(1))
+	ax.xaxis.set_major_locator(matplotlib.ticker.MultipleLocator(int(f'{x_prec_int}')))
+	ax.yaxis.set_major_locator(matplotlib.ticker.MultipleLocator(int(f'{y_prec_int}')))
+	plt.ginput(20)
 	plt.show()
-
-
-all_moto_list = return_data_from_all_files(TimeFrameAndModelEnum.ALL)
 
 
 def show_most_popular():
@@ -36,7 +40,6 @@ def show_most_popular():
 
 def show_most_popular_by_year():
 	moto_count = all_moto_list.groupby(['Year', 'Price', 'Model'])
-
 	print(moto_count.size())
 	
 	sns.catplot(
@@ -73,25 +76,35 @@ def show_most_popular_by_price_and_year():
 		y='Year',
 		col='Model',
 		col_wrap=5,
-		# hue='Price',
-		# style='choice',
-		# kind='line',
 		dashes=False,
 		markers=True
-	
 	)
 	plt.show()
-	
+
 
 def show_price_estimation(query_model):
-	sns.lmplot(
-		data=all_moto_list.query(f'Model == "{query_model}"'),
-		x='Price',
-		y='Year',
-		ci=None,
-		scatter_kws={'s': 80}
-	)
-	show_plot()
+	pd.set_option('display.max_rows', None)
+	try:
+		printing = all_moto_list \
+			.query(f'Model =="{query_model}"') \
+			.groupby(['Price', 'Year', 'Location', 'Link']) \
+			.size()
+		print(printing)
+		print(type(printing))
+		sns.lmplot(
+			data=all_moto_list
+			.query(f'Model == "{query_model}"'),
+			x='Price',
+			y='Year',
+			x_estimator=np.mean,
+			ci=80,
+			lowess=True,
+			scatter_kws={'s': 80}
+		)
+		show_plot(x_prec_int=500, y_prec_int=1)
+	except UndefinedVariableError:
+		tb = sys.exc_info()[0]
+		print(f"Show price estimation TraceBack {tb}")
 
 
 # show_most_popular()
@@ -99,3 +112,4 @@ def show_price_estimation(query_model):
 # show_most_popular_by_price()
 # show_most_popular_by_price_and_year()
 show_price_estimation('z750')
+
