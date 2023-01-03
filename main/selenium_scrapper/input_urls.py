@@ -11,6 +11,6 @@ def return_url_list(start_price, year, engine_size):
 				f'/?currency=EUR&search%5Bprivate_business%5D=private&search%5B'
 				f'filter_float_price:from%5D={start_price}&search%5Bfilter_float_year:from%5D={year}&search%5B'
 				f'filter_float_enginesize:from%5D={engine_size}&search%5Bfilter_enum_state%5D%5B0%5D=used')
-	
+			
 	return moto_urls
 

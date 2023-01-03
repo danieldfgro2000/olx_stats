@@ -8,6 +8,7 @@ import seaborn as sns
 from pandas.errors import UndefinedVariableError
 
 from main.data_mining.a_return_data_from_all_files import return_data_from_all_files, TimeFrameAndModelEnum
+from main.model.all_moto_atv_models import reduced_moto_atv_brand_model_dict
 
 sns.set_theme(style='darkgrid')
 sns.set(rc={'axes.facecolor': 'cornflowerblue'})
@@ -85,24 +86,29 @@ def show_most_popular_by_price_and_year():
 def show_price_estimation(query_model):
 	pd.set_option('display.max_rows', None)
 	try:
+		# moto_count = all_moto_list.groupby(['Model', 'Year', 'Price']).size().reset_index(name="Location")
+		# model_count = moto_count.Model.value_counts().iloc[:20]
+		
 		printing = all_moto_list \
 			.query(f'Model =="{query_model}"') \
 			.groupby(['Price', 'Year', 'Location', 'Link']) \
 			.size()
+		
 		print(printing)
-		print(type(printing))
-		sns.lmplot(
-			data=all_moto_list
-			.query(f'Model == "{query_model}"'),
-			x='Price',
-			y='Year',
-			x_estimator=np.mean,
-			ci=80,
-			lowess=True,
-			scatter_kws={'s': 80}
-		)
-		show_plot(x_prec_int=500, y_prec_int=1)
-	except UndefinedVariableError:
+		# print(type(printing))
+		if len(printing) > 0:
+			sns.lmplot(
+				data=all_moto_list
+				.query(f'Model == "{query_model}"'),
+				x='Price',
+				y='Year',
+				x_estimator=np.mean,
+				ci=80,
+				lowess=True,
+				scatter_kws={'s': 80}
+			)
+			show_plot(x_prec_int=500, y_prec_int=1)
+	except (UndefinedVariableError, ValueError):
 		tb = sys.exc_info()[0]
 		print(f"Show price estimation TraceBack {tb}")
 
@@ -111,5 +117,9 @@ def show_price_estimation(query_model):
 # show_most_popular_by_year()
 # show_most_popular_by_price()
 # show_most_popular_by_price_and_year()
-show_price_estimation('z750')
+# show_price_estimation('hornet')
+
+for brand in reduced_moto_atv_brand_model_dict:
+	for model in reduced_moto_atv_brand_model_dict.get(brand):
+		show_price_estimation(model)
 
