@@ -1,3 +1,19 @@
+from dataclasses import dataclass
+
+
+@dataclass
+class ICEItem:
+	brand: str
+	model: str
+	type: str
+	price: str
+	url: str
+	year: str
+	location: str
+	added_date: str
+	sold_date: str
+	
+
 moto_atv_brand_model_dict = {
 	'honda': {
 		'crf': 'motocicleta',
@@ -121,12 +137,18 @@ moto_atv_brand_model_dict = {
 }
 reduced_moto_atv_brand_model_dict = {
 	'honda': {
+		'cbr-600-f': 'motocicleta',
+		'cbr-600-rr': 'motocicleta',
 		'hornet': 'motocicleta',
 		'nc700': 'motocicleta',
 		'nc750': 'motocicleta',
-		'vfr': 'motocicleta',
+		'varadero': 'motocicleta',
+		'vfr-800': 'motocicleta',
 	},
 	'kawasaki': {
+		'kle': 'motocicleta',
+		'klr': 'motocicleta',
+		'kxf450': 'motocicleta',
 		'z750': 'motocicleta',
 		'z800': 'motocicleta',
 		'versys': 'motocicleta',

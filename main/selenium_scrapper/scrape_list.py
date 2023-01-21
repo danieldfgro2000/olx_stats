@@ -1,3 +1,5 @@
+import csv
+import os
 import sys
 
 import tqdm
@@ -19,6 +21,8 @@ def init_data_scrapping(selenium_web_driver):
 	page = 0
 	if total_items != 0:
 		total_pages = int(total_items) // 40
+		if total_pages == 0:
+			total_pages = 1
 		print(f'total_pages = {total_pages}')
 	print(f"total = {total_items}")
 	
@@ -79,10 +83,18 @@ def try_scrapping(selenium_web_driver, total_of_elements):
 								add_model = model
 								add_type = moto_atv_brand_model_dict.get(brand).get(model)
 								
-								scrapped_data_list.append(
-									[ad_price, ad_year, ad_location, ad_listing_date, ad_link, ad_title, add_brand,
-									 add_model,
-									 add_type])
+								scrapped_data_list.append([
+									total_of_elements,
+									ad_price,
+									ad_year,
+									ad_location,
+									ad_listing_date,
+									ad_link,
+									ad_title,
+									add_brand,
+									add_model,
+									add_type
+								])
 	except (NoSuchElementException, StaleElementReferenceException, ElementNotInteractableException,
 	        ElementClickInterceptedException):
 		tb = sys.exc_info()[0]

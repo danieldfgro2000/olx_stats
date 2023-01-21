@@ -21,7 +21,7 @@ class TimeFrameAndModelEnum(Enum):
 	KAWASAKI = kawasaki_today_scrapped_data_path
 
 
-def return_data_from_all_files(timeframe_and_model: TimeFrameAndModelEnum):
+def return_pd_df_from_all_files(timeframe_and_model: TimeFrameAndModelEnum):
 	list_of_csv = []
 	try:
 		for root, dirs, files in os.walk(os.path.normpath(timeframe_and_model.value)):
@@ -31,8 +31,18 @@ def return_data_from_all_files(timeframe_and_model: TimeFrameAndModelEnum):
 					index_col=None,
 					header=0,
 					delimiter=',',
-					names=['Price', 'Year', 'Location', 'added_date', 'Link', 'Title', 'Brand', 'Model',
-					       'Type_moto_or_atv']
+					names=[
+						'Count',
+						'Price',
+						'Year',
+						'Location',
+						'added_date',
+						'Link',
+						'Title',
+						'Brand',
+						'Model',
+						'Type_moto_or_atv'
+					]
 				)
 				list_of_csv.append(rf)
 		return pd.concat(list_of_csv, ignore_index=True)
@@ -40,3 +50,13 @@ def return_data_from_all_files(timeframe_and_model: TimeFrameAndModelEnum):
 		tb = sys.exc_info()[0]
 		print(f"Return CSV list TraceBack {tb}")
 		return pd.DataFrame({'A': []})
+	
+	
+def return_a_list_with_all_csv():
+	list_of_csv = []
+	for root, dirs, files in os.walk(os.path.normpath(scrapped_data_path)):
+		for file in files:
+			new_file = os.path.join(root, file)
+			list_of_csv.append(new_file)
+	print(f'all csvs size = {len(list_of_csv)}')
+	return list_of_csv

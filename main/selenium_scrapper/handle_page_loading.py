@@ -24,9 +24,9 @@ def setup_selenium_web_driver(input_url):
 
 def accept_tnc(selenium_web_driver):
 	try:
-		WebDriverWait(selenium_web_driver, 1)
+		WebDriverWait(selenium_web_driver, 10)
 		selenium_web_driver.find_element(By.XPATH, "//*[@id='onetrust-accept-btn-handler']").click()
-		WebDriverWait(selenium_web_driver, 3)
+		WebDriverWait(selenium_web_driver, 10)
 	except (NoSuchElementException, TimeoutException, StaleElementReferenceException):
 		tb = sys.exc_info()[0]
 		print(f"Scrape Data TraceBack {tb}")
