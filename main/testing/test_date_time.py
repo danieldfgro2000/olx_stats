@@ -6,7 +6,7 @@ def test__is_month_with_31_day():
     for i in list_of_months_with_31_days:
         month_to_test = i + 1  # 1 to subtract for prev month
         day = f'2023-{month_to_test}-24'
-        assert RetrievePreviousDays(day=day).is_month_with_31_day() is True
+        assert RetrievePreviousDays(day=day)._is_month_with_31_day() is True
 
 
 def test__is_not_month_with_31_day():
@@ -16,7 +16,7 @@ def test__is_not_month_with_31_day():
         if i == 7:
             month_to_test = i + 3
         day = f'2023-{month_to_test}-24'
-        assert RetrievePreviousDays(day=day).is_month_with_31_day() is False
+        assert RetrievePreviousDays(day=day)._is_month_with_31_day() is False
 
 
 def test__is_month_with_28_day():

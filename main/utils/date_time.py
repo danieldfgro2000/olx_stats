@@ -11,15 +11,15 @@ current_time_millis = now.microsecond
 
 class RetrievePreviousDays:
 
-    def __init__(self, day='2023-01-24', no_of_days=0):
+    def __init__(self, day=today, no_of_days=0):
         self.today = day
         self.prev_day = today
         self.no_of_days = no_of_days
         self.day_int = int(self.today.split('-')[2])
         self.month_int = int(self.today.split('-')[1])
-        self.year_int = int(self.today.split('-')[0])
+        self.year_int = int(self.today.split('-')[0][2:4])
 
-    def is_month_with_31_day(self):
+    def _is_month_with_31_day(self):
         n = self.month_int - 1
         return n == 1 or n == 3 or n == 5 or n == 7 or n == 8 or n == 10 or n == 12
 
@@ -41,7 +41,6 @@ class RetrievePreviousDays:
         return month_str
 
     def return_n_prev_day(s):
-        print(f'\n today = {s.today}')
         if s.no_of_days == 0:
             s.prev_day = s.today
         else:
@@ -56,7 +55,7 @@ class RetrievePreviousDays:
         if s.is_first_month():
             s.prev_day = str(s.year_int - 1) + '-' + '12' + '-' + str(
                 31 + s.day_int - s.no_of_days)
-        elif s.is_month_with_31_day():
+        elif s._is_month_with_31_day():
             s.prev_day = str(s.year_int) + '-' + s.return_month_starting_with_zero(
                 s.month_int - 1) + '-' + str(
                 31 + s.day_int - s.no_of_days)
@@ -77,8 +76,6 @@ class RetrievePreviousDays:
             day_key = f'day-{i}'
             day_value = self.prev_day
             dict_prev_days.update({day_key: day_value})
-
-        print(dict_prev_days)
         return dict_prev_days
 
 
@@ -98,4 +95,4 @@ if __name__ == "__main__":
     # print(f"current time millis = {current_time_millis}")
     # print(f'today = {today}')
     # print(f'yesterday = {yesterday}')
-    RetrievePreviousDays(day=today, no_of_days=10).return_dict_for_no_of_prev_days()
+    RetrievePreviousDays(no_of_days=10).return_dict_for_no_of_prev_days()

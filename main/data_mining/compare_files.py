@@ -4,7 +4,7 @@ import pandas as pd
 
 from main.data_mining.a_return_csv_data import return_a_list_with_all_csv
 from main.model.all_moto_atv_models import moto_atv_brand_model_dict
-from main.utils.date_time import time_it, today, yesterday
+from main.utils.date_time import time_it, today, RetrievePreviousDays
 
 
 def pandas_read_csv(path):
@@ -67,25 +67,23 @@ def iterate_trough_csvs_by_model():
 
 def compare_last_two_files_for_model(list_of_csv):
     today_csv_list = []
-    yesterday_csv_list = []
+    previous_csv_list = []
 
     number_of_days_to_check = 10
-
-    for csv in list_of_csv:
-
-        day_in_csv = csv[len(csv) - 20: len(csv) - 12]
-
-        if day_in_csv == today:
-            today_csv_list.append(csv)
-
-        if day_in_csv == yesterday:
-            # print(f'f append csv = {csv}')
-            # print(f'f yesterday size = {csv}')
-            yesterday_csv_list.append(csv)
+    prev_days_dict = RetrievePreviousDays(no_of_days=number_of_days_to_check).return_dict_for_no_of_prev_days()
+    for prev_day in prev_days_dict:
+        print(f'prev day = {prev_days_dict[prev_day]}')
+        for csv in list_of_csv:
+            day_in_csv = csv[len(csv) - 20: len(csv) - 12]
+            if day_in_csv == today:
+                today_csv_list.append(csv)
+            if day_in_csv == prev_days_dict[prev_day]:
+                previous_csv_list.append(csv)
+        if len(previous_csv_list) > 0:
+            break
 
     df1 = merge_csvs(today_csv_list)
-
-    df2 = merge_csvs(yesterday_csv_list)
+    df2 = merge_csvs(previous_csv_list)
     print(f'df2 = {df2}')
     if df1 is not None and df2 is not None:
         merged = pd.merge(df1, df2)
