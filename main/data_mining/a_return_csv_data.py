@@ -58,5 +58,4 @@ def return_a_list_with_all_csv():
 		for file in files:
 			new_file = os.path.join(root, file)
 			list_of_csv.append(new_file)
-	print(f'all csvs size = {len(list_of_csv)}')
 	return list_of_csv
