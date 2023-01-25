@@ -56,10 +56,9 @@ def iterate_trough_csvs_by_model():
                     list_of_csv_by_model.append(csv)
             if len(list_of_csv_by_model) > 0:
                 # save_by_brand_or_model_to_csv_from_all_csvs(csv_list=list_of_csv_by_model, model=model)
-                list_of_csv_by_brand.extend(list_of_csv_by_model)
+                # list_of_csv_by_brand.extend(list_of_csv_by_model)
 
                 compare_last_two_files_for_model(list_of_csv_by_model)
-
 
         # if len(list_of_csv_by_brand) > 0:
         # save_by_brand_or_model_to_csv_from_all_csvs(csv_list=list_of_csv_by_brand, brand=brand)
@@ -72,7 +71,6 @@ def compare_last_two_files_for_model(list_of_csv):
     number_of_days_to_check = 10
     prev_days_dict = RetrievePreviousDays(no_of_days=number_of_days_to_check).return_dict_for_no_of_prev_days()
     for prev_day in prev_days_dict:
-        print(f'prev day = {prev_days_dict[prev_day]}')
         for csv in list_of_csv:
             day_in_csv = csv[len(csv) - 20: len(csv) - 12]
             if day_in_csv == today:
@@ -80,29 +78,24 @@ def compare_last_two_files_for_model(list_of_csv):
             if day_in_csv == prev_days_dict[prev_day]:
                 previous_csv_list.append(csv)
         if len(previous_csv_list) > 0:
+            print(f"Stopping")
             break
-
+    print("Merging")
     df1 = merge_csvs(today_csv_list)
     df2 = merge_csvs(previous_csv_list)
     print(f'df2 = {df2}')
     if df1 is not None and df2 is not None:
-        merged = pd.merge(df1, df2)
-        print(f" merged = {merged}")
-        # print(pd)
-    # rf_1 = pd.read_csv(dict_csv.get(model)[len(dict_csv.get(model)) - 1])
-    #
-    # rf_2 = pd.read_csv(dict_csv.get(model)[len(dict_csv.get(model)) - 2])
-    #
-    # result = pd.merge(rf_1, rf_2, how='right')
+        join = pd.merge(df1, df2)
+        print(f" merged = {join.size}")
+        print(f" df1 = {df1.size}")
+        print(f" df2 = {df2.size}")
 
 
 def save_by_brand_or_model_to_csv_from_all_csvs(csv_list, brand=None, model=None):
     csv_model_path = '/home/daniel/PycharmProjects/olx_stats/main/data_mining/csv/model'
     csv_brand_path = '/home/daniel/PycharmProjects/olx_stats/main/data_mining/csv/brand'
 
-    model_pd = None
-
-    merge_csvs(csv_list)
+    model_pd = merge_csvs(csv_list)
     if model and model_pd is not None:
         csv_path = csv_model_path
         make_dir_if_does_not_exist(csv_path)

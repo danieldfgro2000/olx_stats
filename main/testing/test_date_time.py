@@ -22,7 +22,7 @@ def test__is_not_month_with_31_day():
 def test__is_month_with_28_day():
     month_to_test = 3 # 2 (Feb) + 1 to subtract for prev month
     day = f'2023-{month_to_test}-24'
-    assert RetrievePreviousDays(day=day).is_month_with_28_day() is True
+    assert RetrievePreviousDays(day=day)._is_month_with_28_day() is True
 
 
 def test__calc_prev_day_is_today():
@@ -37,7 +37,7 @@ def test__calc_prev_day_returns_correct_day_for_days():
     today = '2023-01-24'
     day_int = int(today.split('-')[2])
     for i in range(1, day_int):
-        day_to_return = f'2023-01-{day_int - i}'
+        day_to_return = f'23-01-{day_int - i}'
         no_of_days = i
         day_returned = RetrievePreviousDays(day=today, no_of_days=no_of_days).return_n_prev_day()
         assert day_returned == day_to_return
@@ -46,7 +46,7 @@ def test__calc_prev_day_returns_correct_day_for_days():
 def test_1_calc_prev_day_returns_correct_day_for_years():
     today = '2023-01-4'
     no_of_days = 4
-    day_to_return = '2022-12-31'
+    day_to_return = '22-12-31'
     day_returned = RetrievePreviousDays(day=today, no_of_days=no_of_days).return_n_prev_day()
     assert day_returned == day_to_return
 
@@ -54,7 +54,7 @@ def test_1_calc_prev_day_returns_correct_day_for_years():
 def test_2_calc_prev_day_returns_correct_day_for_years():
     today = '2023-01-4'
     no_of_days = 5
-    day_to_return = '2022-12-30'
+    day_to_return = '22-12-30'
     day_returned = RetrievePreviousDays(day=today, no_of_days=no_of_days).return_n_prev_day()
     assert day_returned == day_to_return
 
@@ -62,7 +62,7 @@ def test_2_calc_prev_day_returns_correct_day_for_years():
 def test_3_calc_prev_day_returns_correct_day_for_years():
     today = '2023-01-4'
     no_of_days = 15
-    day_to_return = '2022-12-20'
+    day_to_return = '22-12-20'
     day_returned = RetrievePreviousDays(day=today, no_of_days=no_of_days).return_n_prev_day()
     assert day_returned == day_to_return
 
@@ -70,7 +70,7 @@ def test_3_calc_prev_day_returns_correct_day_for_years():
 def test_1_calc_prev_day_returns_correct_day_for_months():
     today = '2023-02-4'
     no_of_days = 4
-    day_to_return = '2023-01-31'
+    day_to_return = '23-01-31'
     day_returned = RetrievePreviousDays(day=today, no_of_days=no_of_days).return_n_prev_day()
     assert day_returned == day_to_return
 
@@ -78,7 +78,7 @@ def test_1_calc_prev_day_returns_correct_day_for_months():
 def test_2_calc_prev_day_returns_correct_day_for_months():
     today = '2023-02-4'
     no_of_days = 5
-    day_to_return = '2023-01-30'
+    day_to_return = '23-01-30'
     day_returned = RetrievePreviousDays(day=today, no_of_days=no_of_days).return_n_prev_day()
     assert day_returned == day_to_return
 
@@ -86,7 +86,7 @@ def test_2_calc_prev_day_returns_correct_day_for_months():
 def test_3_calc_prev_day_returns_correct_day_for_months():
     today = '2023-02-4'
     no_of_days = 15
-    day_to_return = '2023-01-20'
+    day_to_return = '23-01-20'
     day_returned = RetrievePreviousDays(day=today, no_of_days=no_of_days).return_n_prev_day()
     assert day_returned == day_to_return
 
@@ -94,7 +94,7 @@ def test_3_calc_prev_day_returns_correct_day_for_months():
 def test_4_calc_prev_day_returns_correct_day_for_months():
     today = '2023-02-4'
     no_of_days = 30
-    day_to_return = '2023-01-5'
+    day_to_return = '23-01-5'
     day_returned = RetrievePreviousDays(day=today, no_of_days=no_of_days).return_n_prev_day()
     assert day_returned == day_to_return
 
@@ -102,7 +102,7 @@ def test_4_calc_prev_day_returns_correct_day_for_months():
 def test_1_calc_prev_day_returns_correct_day_for_31_day_months():
     today = '2023-04-4'
     no_of_days = 4
-    day_to_return = '2023-03-31'
+    day_to_return = '23-03-31'
     day_returned = RetrievePreviousDays(day=today, no_of_days=no_of_days).return_n_prev_day()
     assert day_returned == day_to_return
 
@@ -110,7 +110,7 @@ def test_1_calc_prev_day_returns_correct_day_for_31_day_months():
 def test_2_calc_prev_day_returns_correct_day_for_31_day_months():
     today = '2023-04-4'
     no_of_days = 5
-    day_to_return = '2023-03-30'
+    day_to_return = '23-03-30'
     day_returned = RetrievePreviousDays(day=today, no_of_days=no_of_days).return_n_prev_day()
     assert day_returned == day_to_return
 
@@ -118,7 +118,7 @@ def test_2_calc_prev_day_returns_correct_day_for_31_day_months():
 def test_3_calc_prev_day_returns_correct_day_for_31_day_months():
     today = '2023-04-4'
     no_of_days = 15
-    day_to_return = '2023-03-20'
+    day_to_return = '23-03-20'
     day_returned = RetrievePreviousDays(day=today, no_of_days=no_of_days).return_n_prev_day()
     assert day_returned == day_to_return
 
@@ -126,7 +126,7 @@ def test_3_calc_prev_day_returns_correct_day_for_31_day_months():
 def test__calc_prev_day_returns_correct_day_for_30_day_months():
     today = '2023-07-4'
     no_of_days = 4
-    day_to_return = '2023-06-30'
+    day_to_return = '23-06-30'
     day_returned = RetrievePreviousDays(day=today, no_of_days=no_of_days).return_n_prev_day()
     assert day_returned == day_to_return
 
@@ -134,7 +134,7 @@ def test__calc_prev_day_returns_correct_day_for_30_day_months():
 def test__calc_prev_day_returns_correct_day_for_28_day_months():
     today = '2023-03-4'
     no_of_days = 4
-    day_to_return = '2023-02-28'
+    day_to_return = '23-02-28'
     day_returned = RetrievePreviousDays(day=today, no_of_days=no_of_days).return_n_prev_day()
     assert day_returned == day_to_return
 
@@ -142,7 +142,7 @@ def test__calc_prev_day_returns_correct_day_for_28_day_months():
 def test_1_retrieve_no_of_previous_days():
     no_of_days = 3
     today = '2023-03-4'
-    expected_result = {'day-1': '2023-03-3', 'day-2': '2023-03-2', 'day-3': '2023-03-1'}
+    expected_result = {'day-1': '23-03-3', 'day-2': '23-03-2', 'day-3': '23-03-1'}
     actual_result = RetrievePreviousDays(day=today, no_of_days=no_of_days).return_dict_for_no_of_prev_days()
     assert actual_result == expected_result
 
