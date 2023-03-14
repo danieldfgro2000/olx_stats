@@ -115,13 +115,12 @@ def show_price_estimation(query_model):
 
 
 if __name__ == '__main__':
-    for brand in reduced_moto_atv_brand_model_dict:
-        for model in reduced_moto_atv_brand_model_dict.get(brand):
-            print(f'Model: {model}')
-            show_price_estimation(model)
+    # for brand in reduced_moto_atv_brand_model_dict:
+    #     for model in reduced_moto_atv_brand_model_dict.get(brand):
+    #         print(f'Model: {model}')
 
         # show_most_popular()
         # show_most_popular_by_year()
         # show_most_popular_by_price()
         # show_most_popular_by_price_and_year()
-        # show_price_estimation('crf')
+        show_price_estimation('vfr-800')
